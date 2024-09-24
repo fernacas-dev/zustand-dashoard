@@ -1,6 +1,7 @@
 import { create, StateCreator } from "zustand";
 // import { customSessionStorage } from "../storages/sesssion.storage";
 import { devtools, persist } from "zustand/middleware";
+import { useWeddingBoundStore } from "../wedding";
 // import { firebaseStorage } from "../storages/firebase.storage";
 // import { logger } from "../middlewares/logger.middleware";
 
@@ -38,3 +39,12 @@ export const userPersonStore = create<PersonState & Actions>()(
   )
   // )
 );
+
+userPersonStore.subscribe((nextState, prevState) => {
+  console.log(nextState, prevState);
+  const { firstName, lastName } = nextState;
+
+  // Warning with cyclic dependencies
+  useWeddingBoundStore.getState().setFirstName(firstName);
+  useWeddingBoundStore.getState().setLastName(lastName);
+});
