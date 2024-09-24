@@ -9,7 +9,7 @@ interface Props {
 function SingleTask({ task }: Props) {
   const setDraggingTaskId = useTaskStore((state) => state.setDraggingTaskId);
   const removeDraggingTaskId = useTaskStore(
-    (state) => state.removingDraggingTaskId
+    (state) => state.removeDraggingTaskId
   );
 
   return (
